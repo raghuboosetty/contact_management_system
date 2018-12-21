@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
+    @groups = current_employee.groups.all
   end
 
   # GET /groups/1
@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
-    @group = Group.new
+    @group = current_employee.groups.new
   end
 
   # GET /groups/1/edit
@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @group = Group.new(group_params)
+    @group = current_employee.groups.new(group_params)
 
     respond_to do |format|
       if @group.save
@@ -64,11 +64,11 @@ class GroupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params[:id])
+      @group = current_employee.groups.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:employee_id, :name, :active)
+      params.require(:group).permit(:name, :active)
     end
 end

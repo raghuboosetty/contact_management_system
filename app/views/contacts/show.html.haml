@@ -2,7 +2,7 @@
 
 %p
   %b Group:
-  = @contact.group
+  = @contact.group.name
 %p
   %b Name:
   = @contact.name
@@ -13,6 +13,6 @@
   %b Phone:
   = @contact.phone
 
-= link_to 'Edit', edit_contact_path(@contact)
+= link_to 'Edit', edit_group_contact_path(@group, @contact)
 \|
-= link_to 'Back', contacts_path
+= link_to 'Back', group_contacts_path(@group)

@@ -6,14 +6,11 @@
         - @group.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = f.label :employee
-    = f.text_field :employee
-  .field
+  .form-group
     = f.label :name
-    = f.text_field :name
-  .field
+    = f.text_field :name, class: 'form-control'
+  .form-group
     = f.label :active
-    = f.check_box :active
+    = f.check_box :active, class: 'form-control'
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-primary'

@@ -1,0 +1,22 @@
+%table.table.table-sm.table-hover.table-striped
+  %thead
+    %tr
+      %th Group
+      %th Name
+      %th Email
+      %th Phone
+      %th Actions
+
+  %tbody
+    - @contacts.each do |contact|
+      %tr
+        %td= contact.group.name
+        %td= contact.name
+        %td= contact.email
+        %td= contact.phone
+        %td
+          = link_to 'Show', [contact.group, contact]
+          |
+          = link_to 'Edit', edit_group_contact_path(contact.group, contact)
+          |
+          = link_to 'Destroy', [contact.group, contact], method: :delete, data: { confirm: 'Are you sure?' }

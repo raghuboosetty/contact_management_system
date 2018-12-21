@@ -1,24 +1,27 @@
 %h1 Listing groups
 
-%table
+%table.table.table-sm.table-hover.table-striped
   %thead
     %tr
-      %th Employee
       %th Name
-      %th Active
-      %th
-      %th
-      %th
+      %th Status
+      %th Contacts Count
+      %th Actions
 
   %tbody
     - @groups.each do |group|
       %tr
-        %td= group.employee
         %td= group.name
-        %td= group.active
-        %td= link_to 'Show', group
-        %td= link_to 'Edit', edit_group_path(group)
-        %td= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= group.active ? 'Active' : 'Inactive'
+        %td= group.contacts.count
+        %td
+          = link_to 'Contacts', group_contacts_path(group)
+          |
+          = link_to 'Show', group
+          |
+          = link_to 'Edit', edit_group_path(group)
+          |
+          = link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

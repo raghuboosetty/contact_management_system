@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  resources :contacts
-  resources :groups
   devise_for :employees
-  
+
+  resources :groups do
+    resources :contacts
+  end
+  resources :contacts, only: :[] do
+    collection do
+      get :all
+    end
+  end
+
   root 'groups#index'
 end

@@ -1,34 +1,39 @@
 class ContactsController < ApplicationController
+  before_action :set_group, except: :all
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
-  # GET /contacts
-  # GET /contacts.json
-  def index
-    @contacts = Contact.all
+  def all
+    @contacts = Contact.joins(group: :employee).where("groups.employee_id = ?", current_employee.id)
   end
 
-  # GET /contacts/1
-  # GET /contacts/1.json
+  # GET /groups/1/contacts
+  # GET /groups/1/contacts.json
+  def index
+    @contacts = @group.contacts.all
+  end
+
+  # GET /groups/1/contacts/1
+  # GET /groups/1/contacts/1.json
   def show
   end
 
-  # GET /contacts/new
+  # GET /groups/1/contacts/new
   def new
-    @contact = Contact.new
+    @contact = @group.contacts.new
   end
 
-  # GET /contacts/1/edit
+  # GET /groups/1/contacts/1/edit
   def edit
   end
 
-  # POST /contacts
-  # POST /contacts.json
+  # POST /groups/1/contacts
+  # POST /groups/1/contacts.json
   def create
-    @contact = Contact.new(contact_params)
+    @contact = @group.contacts.new(contact_params)
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+        format.html { redirect_to [@group, @contact], notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
         format.html { render :new }
@@ -37,12 +42,12 @@ class ContactsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /contacts/1
-  # PATCH/PUT /contacts/1.json
+  # PATCH/PUT /groups/1/contacts/1
+  # PATCH/PUT /groups/1/contacts/1.json
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+        format.html { redirect_to [@group, @contact], notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { render :edit }
@@ -51,24 +56,29 @@ class ContactsController < ApplicationController
     end
   end
 
-  # DELETE /contacts/1
-  # DELETE /contacts/1.json
+  # DELETE /groups/1/contacts/1
+  # DELETE /groups/1/contacts/1.json
   def destroy
     @contact.destroy
     respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+      format.html { redirect_to group_contacts_url, notice: 'Contact was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_group
+      @group = current_employee.groups.find(params[:group_id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = @group.contacts.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:group_id, :name, :email, :phone)
+      params.require(:contact).permit(:name, :email, :phone)
     end
 end
