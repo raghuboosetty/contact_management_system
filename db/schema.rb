@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_21_063320) do
+ActiveRecord::Schema.define(version: 2018_12_21_064858) do
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer "group_id"
+    t.string "name"
+    t.string "email"
+    t.integer "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_contacts_on_group_id"
+  end
 
   create_table "employees", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +32,16 @@ ActiveRecord::Schema.define(version: 2018_12_21_063320) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.integer "employee_id"
+    t.string "name"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_groups_on_employee_id"
+    t.index ["name"], name: "index_groups_on_name"
   end
 
 end
