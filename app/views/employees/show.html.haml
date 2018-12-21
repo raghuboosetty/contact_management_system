@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b Email:
+  = current_employee.email
+%p
+  %b First Name
+  = current_employee.first_name
+%p
+  %b Last Name
+  = current_employee.last_name  
+%p
+  %b Mobile Number
+  = current_employee.aadhar
+
+= link_to 'Edit Details', edit_employee_registration_path

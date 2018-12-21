@@ -11,6 +11,8 @@
     %nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
       %a.navbar-brand{:href => "#"} Inmar
       %ul.navbar-nav
+        %li.nav-item{class: active_link_class('employees')}
+          = link_to 'My Profile', employee_path, class: 'nav-link'
         %li.nav-item{class: active_link_class('groups')}
           = link_to 'Groups', groups_path, class: 'nav-link'
         %li.nav-item{class: active_link_class('contacts')}

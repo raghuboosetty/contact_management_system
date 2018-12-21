@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get :all
     end
   end
+  resource :employee, only: :show
 
   root 'groups#index'
 end
