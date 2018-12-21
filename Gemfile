@@ -52,6 +52,16 @@ gem 'bootstrap', '~> 4.1.3'
 # jQuery
 gem 'jquery-rails'
 
+# grape API
+gem 'grape'
+gem 'rack-cors', require: 'rack/cors'
+gem 'grape-active_model_serializers'
+gem 'grape_on_rails_routes'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-entity'
+gem 'httpclient'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

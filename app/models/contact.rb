@@ -2,6 +2,7 @@ class Contact < ApplicationRecord
   belongs_to :group
 
   validates :group_id, :name, presence: true
+  validates :email, uniqueness: true
 end
 
 # == Schema Information

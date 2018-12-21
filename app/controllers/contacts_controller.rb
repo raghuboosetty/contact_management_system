@@ -19,7 +19,11 @@ class ContactsController < ApplicationController
 
   # GET /groups/1/contacts/new
   def new
-    @contact = @group.contacts.new
+    if !@group.active?
+      redirect_back(fallback_location: groups_path, notice: 'Please enable the group')
+    else      
+      @contact = @group.contacts.new
+    end
   end
 
   # GET /groups/1/contacts/1/edit
