@@ -1,6 +1,8 @@
 class Group < ApplicationRecord
   belongs_to :employee
   has_many :contacts, dependent: :destroy
+
+  validates :name, presence: true, uniqueness: true
 end
 
 # == Schema Information
